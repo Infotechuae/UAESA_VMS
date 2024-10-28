@@ -1,0 +1,917 @@
+<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Admin_Master.master.cs" Inherits="SecuLobbyVMS.Admin_Master" %>
+
+<!DOCTYPE html>
+
+<html>
+<head runat="server">
+    <title>UAESA | VMS</title>
+    <link rel="shortcut icon" type="image/jpg" href="dist/img/favicon.ico" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css">
+    <!-- daterange picker -->
+    <link rel="stylesheet" href="plugins/daterangepicker/daterangepicker.css">
+    <!-- iCheck for checkboxes and radio inputs -->
+    <link rel="stylesheet" href="plugins/icheck-bootstrap/icheck-bootstrap.min.css">
+    <!-- Bootstrap Color Picker -->
+    <link rel="stylesheet" href="plugins/bootstrap-colorpicker/css/bootstrap-colorpicker.min.css">
+    <!-- Tempusdominus Bootstrap 4 -->
+    <link rel="stylesheet" href="plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
+    <!-- overlayScrollbars -->
+    <link rel="stylesheet" href="plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
+
+    <link rel="stylesheet" href="plugins/select2/css/select2.min.css">
+    <link rel="stylesheet" href="plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css">
+    <!-- Bootstrap4 Duallistbox -->
+    <link rel="stylesheet" href="plugins/bootstrap4-duallistbox/bootstrap-duallistbox.min.css">
+    <!-- BS Stepper -->
+    <link rel="stylesheet" href="plugins/bs-stepper/css/bs-stepper.min.css">
+    <!-- dropzonejs -->
+    <link rel="stylesheet" href="plugins/dropzone/min/dropzone.min.css">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="dist/css/adminlte.min.css">
+    <script src="dist/js/sweetalert2.all.min.js"></script>
+    <link href="dist/css/sweetalert2.min.css" rel="stylesheet" />
+    <!-- summernote -->
+    <link rel="stylesheet" href="plugins/summernote/summernote-bs4.min.css">
+    <!-- CodeMirror -->
+    <link rel="stylesheet" href="plugins/codemirror/codemirror.css" />
+    <link rel="stylesheet" href="plugins/codemirror/theme/monokai.css" />
+    <!-- SimpleMDE -->
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <style>
+        .MyCalendar {
+            border: 2px solid #000;
+            background-color: #4e4e50;
+            color: #fff;
+            font-family: "segoeui";
+        }
+
+        .btn-primary, .btn-warning, .btn-success, .btn-danger {
+            background-color: #b68a35 !important;
+            border-color: #b68a35 !important;
+            color: #FFF !important;
+        }
+    </style>
+
+
+
+    <script type="text/javascript">
+    
+      $(function () {
+        
+            $("[id*=btnChange]").bind("click", function () {
+                var txtPass = $("[id$=txtPass]").attr("id");
+                var txtPassValue = document.getElementById(txtPass).value;
+
+                var txtRePass = $("[id$=txtRePass]").attr("id");
+                var txtRePassValue = document.getElementById(txtRePass).value;
+
+                if (txtPassValue != "" && txtRePassValue != "") {
+
+                    if (txtPassValue == txtRePassValue) {
+                        $.ajax({
+                            type: "POST",
+                            url: 'MasterDashboard.aspx/UpdateUser',
+                            data: "{Password:'" + txtRePassValue + "'}",
+                            contentType: "application/json; charset=utf-8",
+                            dataType: "json",
+                            success: function () {
+                                debugger;
+                                var url = "login.aspx";
+
+                                swal.fire({
+                                    title: "Password change successfully. Please login with new password", text: "", type: "success"
+                                }).then(function () {
+                                    window.location.href = url;
+                                });
+                            },
+                            error: function () {
+
+                                swal.fire({
+                                    title: "Session out. Please login and change the password", text: "", type: "error"
+                                }).then(function () {
+                                });
+                            }
+                        });
+                    }
+                    else {
+                        swal.fire({
+                            title: "New password and confirm password is not matched", text: "", type: "error"
+                        }).then(function () {
+                        });
+                    }
+                }
+                else {
+                    if (txtPassValue == "") {
+                        swal.fire({
+                            title: "PLease enter the new password", text: "", type: "error"
+                        }).then(function () {
+                        });
+                    }
+                    else if (txtRePassValue == "") {
+                        swal.fire({
+                            title: "Please enter the confirm password", text: "", type: "error"
+                        }).then(function () {
+                        });
+                    }
+                }
+                return false;
+            });
+        });
+    </script>
+
+    <script>
+        function ShowArabic() {
+
+            var val1 = "ar-SA";
+
+            $('#hdnlang').val(val1);
+
+            var pagebutton = document.getElementById("btnLang");
+            pagebutton.click();
+           <%-- $("#<%= btnLang.ClientID %>").click();--%>
+        }
+        function ShowEnglish() {
+
+            var val1 = "en-GB";
+
+            $('#hdnlang').val(val1);
+
+            $("#<%= btnLang.ClientID %>").click();
+        }
+
+    </script>
+
+    <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>
+</head>
+<body class="hold-transition light-mode sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
+    <form id="frm2" runat="server">
+        <div class="wrapper">
+
+            <%--    <!-- Preloader -->
+            <div class="preloader flex-column justify-content-center align-items-center">
+                <img class="animation__wobble" src="dist/img/fav.png" alt="Seculobby" height="60" width="60">
+            </div>--%>
+
+
+            <!-- Navbar -->
+            <nav class="main-header navbar navbar-expand navbar-light">
+                <%--style="background: radial-gradient(circle, rgba(238,174,202,1) 0%, rgba(148,187,233,1) 100%)"--%>
+                <!-- Left navbar links -->
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
+                    </li>
+
+                </ul>
+
+                <!-- Right navbar links -->
+                <ul class="navbar-nav ml-auto">
+
+                    <!-- Messages Dropdown Menu -->
+
+                   <%--       <li class="nav-item dropdown">
+
+                        <a class="nav-link" data-toggle="dropdown" href="#">
+
+                            <asp:Image ID="imgflag" runat="server" ImageUrl="~/dist/img/language.png" alt="Language" onclick="javascript: showLanguageSwitch();" />
+                            &nbsp;&nbsp;<asp:Label ID="lblLanguage" runat="server" ToolTip="Click here to change language" onclick="javascript: showLanguageSwitch();"></asp:Label>
+                        </a>
+                        <asp:DropDownList ID="drpLnguage" runat="server" CssClass="form-control" Style="display: none;" AutoPostBack="true" OnSelectedIndexChanged="drpLnguage_SelectedIndexChanged">
+                            <asp:ListItem Text="English" Value="en-GB"></asp:ListItem>
+                            <asp:ListItem Text="Arabic" Value="ar-SA"></asp:ListItem>
+                        </asp:DropDownList>
+
+
+
+
+                    </li>--%>
+
+
+                    <!-- language Dropdown Menu -->
+                    <li class="nav-item dropdown">
+                        <a class="nav-link" data-toggle="dropdown" href="#">
+
+
+                            <asp:Image ID="imgflag" runat="server" ImageUrl="~/dist/img/language.png" alt="Language" />
+                            &nbsp;&nbsp;<asp:Label ID="lblLanguage" runat="server" ToolTip="Click here to change language"></asp:Label>
+
+
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
+
+                            <a href="#" class="dropdown-item" onclick='ShowEnglish()'>
+                                <asp:Image ID="Image2" runat="server" ImageUrl="~/dist/img/united-kingdom.png" alt="English" />
+                                <asp:Label ID="Label2" runat="server" ToolTip="English" Text="English"></asp:Label>
+
+                            </a>
+                             <div class="dropdown-divider"></div>
+                            <a href="#" class="dropdown-item" onclick='ShowArabic()'>
+                                <asp:Image ID="Image3" runat="server" ImageUrl="~/dist/img/united-arab-emirates.png" alt="Arabic" />
+                                <asp:Label ID="Label3" runat="server" ToolTip="Arabic" Text="Arabic"></asp:Label>
+                            </a>
+                        </div>
+                    </li>
+
+                    <!-- Notifications Dropdown Menu -->
+                    <%--<li class="nav-item dropdown">
+                        <a class="nav-link" data-toggle="dropdown" href="#">
+                            <i class="far fa-bell"></i>
+                            <span class="badge badge-warning navbar-badge">15</span>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
+                            <span class="dropdown-item dropdown-header">15 Notifications</span>
+                            <div class="dropdown-divider"></div>
+                            <a href="#" class="dropdown-item">
+                                <i class="fas fa-envelope mr-2"></i>4 new messages
+           
+                                <span class="float-right text-muted text-sm">3 mins</span>
+                            </a>
+                            <div class="dropdown-divider"></div>
+                            <a href="#" class="dropdown-item">
+                                <i class="fas fa-users mr-2"></i>8 friend requests
+           
+                                <span class="float-right text-muted text-sm">12 hours</span>
+                            </a>
+                            <div class="dropdown-divider"></div>
+                            <a href="#" class="dropdown-item">
+                                <i class="fas fa-file mr-2"></i>3 new reports
+           
+                                <span class="float-right text-muted text-sm">2 days</span>
+                            </a>
+                            <div class="dropdown-divider"></div>
+                            <a href="#" class="dropdown-item dropdown-footer">See All Notifications</a>
+                        </div>
+                    </li>--%>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link" data-toggle="dropdown" href="#">
+
+                            <img src="images/User.png" />
+                            <asp:Label ID="lblAccountName" runat="server"></asp:Label>
+
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
+
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="#" data-toggle="modal" data-target="#ChangePassModal">
+                                <i class="fas fa-key mr-2"></i>
+                                <asp:Label ID="lblCP" runat="server" Text="Change Password"></asp:Label>
+                            </a>
+
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
+                                <i class="fas fa-lock mr-2"></i>
+                                <asp:Label ID="lblLog" runat="server" Text="Logout"></asp:Label>
+
+                            </a>
+
+
+                        </div>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" data-widget="fullscreen" href="#" role="button">
+                            <i class="fas fa-expand-arrows-alt"></i>
+                        </a>
+                    </li>
+
+                </ul>
+            </nav>
+            <!-- /.navbar -->
+            <!-- Logout Modal-->
+            <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">
+                                <asp:Label ID="lblReaady" runat="server" Text="Ready to Leave"></asp:Label>?</h5>
+
+                        </div>
+                        <div class="modal-body">
+                            <asp:Label ID="lblSelectLog" runat="server" Text="Select Logout below if you are ready to end your current session."></asp:Label>
+                        </div>
+                        <div class="modal-footer">
+                            <button class="btn btn-secondary" type="button" data-dismiss="modal">
+                                <asp:Label ID="lblCancel" runat="server" Text="Cancel"></asp:Label></button>
+                            <a class="btn btn-primary" href="login.aspx">
+                                <asp:Label ID="lblLogout1" runat="server" Text="Logout"></asp:Label></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal fade" id="ChangePassModal" tabindex="-1" role="dialog" aria-labelledby="exampleChangePass"
+                aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleChangePass">
+                                <asp:Label ID="lblChange1" runat="server" Text="Change Password"></asp:Label></h5>
+
+                        </div>
+
+                        <div class="modal-body">
+
+
+                            <div class="form-floating mb-3">
+                                <asp:TextBox ID="txtPass" runat="server" class="form-control" placeholder="New Password" TextMode="Password"></asp:TextBox>
+                                <%--  <input type="password" class="form-control" id="txtPass" placeholder="New Password" />--%>
+                                <asp:RegularExpressionValidator ID="Regex3" runat="server" ControlToValidate="txtPass"
+                                    ValidationExpression="^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,}$"
+                                    ErrorMessage="Minimum 8 characters atleast 1 Alphabet, 1 Number and 1 Special Character" ForeColor="Red" />
+                                <label class="sr-only" for="txtPass">
+                                    <asp:Label ID="lblNewPass" runat="server" Text="New Password"></asp:Label>
+
+                                </label>
+
+                            </div>
+                            <div class="form-floating mb-3">
+
+                                <input type="password" id="txtRePass" class="form-control" name="txtRePass" placeholder="Confirm Password" />
+                                <label class="sr-only" for="txtRePass">
+
+
+                                    <asp:Label ID="lblConfPass" runat="server" Text="Confirm Password"></asp:Label></label>
+
+                            </div>
+
+
+                            <div class="modal-footer">
+                                <button class="btn btn-secondary" type="button" data-dismiss="modal">
+                                    <asp:Label ID="lblCancel1" runat="server" Text="Cancel"></asp:Label></button>
+
+                                <button class="btn btn-primary" type="submit" id="btnChange">
+                                    <asp:Label ID="lblChange" runat="server" Text="Change"></asp:Label></button>
+                                <%-- onclick="updateText()"--%>
+                            </div>
+
+
+
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <!-- Main Sidebar Container -->
+            <aside class="main-sidebar sidebar-light-primary elevation-4">
+                <!-- Brand Logo -->
+                <a href="MasterDashboard.aspx" class="brand-link" style="background">
+                    <img src="dist/img/Space.png" alt="Seculobby Logo" style="width: 220px; padding-left: 20px;">
+                    <%--   <span class="brand-text font-weight-dark">Seculobby</span>--%>
+                </a>
+
+                <!-- Sidebar -->
+                <div class="sidebar">
+                    <!-- Sidebar user panel (optional) -->
+                    <%--<div class="user-panel mt-3 pb-3 mb-3 d-flex">
+                        <div class="image">
+                            <img src="images/User.png" />
+                        </div>
+                        <div class="info">
+                            <a href="#" class="d-block">
+                                <asp:Label ID="lblAccountName" runat="server"></asp:Label>
+                            </a>
+                        </div>
+                    </div>--%>
+
+
+                    <!-- Sidebar Menu -->
+                    <nav class="mt-2">
+                        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+                            <!-- Add icons to the links using the .nav-icon class
+               with font-awesome or any other icon font library -->
+                            <li class="nav-item menu-open" id="lnkDashboard" runat="server">
+                                <a href="MasterDashboard.aspx" class="nav-link active" id="aDash" runat="server">
+                                    <%--   <i class="nav-icon fas fa-tachometer-alt"></i>--%>
+                                    <p>
+                                        <img src="dist/img/dashboard.png" />
+                                        <asp:Label ID="lblDashboard" runat="server" Text="Dashboard"></asp:Label>
+                                        <%-- <i class="right fas fa-angle-left"></i>--%>
+                                    </p>
+                                </a>
+
+                            </li>
+                            <li class="nav-item" id="lnkSelfReg" runat="server" style="display:none;">
+                                <a href="VisitRegistration.aspx" class="nav-link" id="aSelfRegis" runat="server">
+
+                                    <p>
+                                        <img src="dist/img/check-in.png" />
+
+                                        <asp:Label ID="lblSelfReg" runat="server" Text="Self Registration"></asp:Label>
+                                        <%--  <span class="right badge badge-danger">New</span>--%>
+                                    </p>
+                                </a>
+                            </li>
+
+                            <li class="nav-item" id="lnkRegis" runat="server" style="display: none;">
+                                <a href="Registration.aspx" class="nav-link" id="aRegis" runat="server">
+
+                                    <p>
+                                        <img src="dist/img/check-in.png" />
+
+                                        <asp:Label ID="Label10" runat="server" Text="Registration"></asp:Label>
+                                        <%--  <span class="right badge badge-danger">New</span>--%>
+                                    </p>
+                                </a>
+                            </li>
+
+                            <li class="nav-item" id="lnkCheckin" runat="server">
+                                <a href="Checkin.aspx?selfid=" class="nav-link" id="aCheckIN" runat="server">
+
+                                    <p>
+                                        <img src="dist/img/check-in.png" />
+
+                                        <asp:Label ID="lblCheckIn" runat="server" Text="Check In"></asp:Label>
+                                        <%--  <span class="right badge badge-danger">New</span>--%>
+                                    </p>
+                                </a>
+                            </li>
+                            <li class="nav-item" id="lnkCheckOut" runat="server">
+                                <a href="Checkout.aspx" class="nav-link" id="aCheckOut" runat="server">
+                                    <%--  <i class="nav-icon fas fa-copy"></i>--%>
+                                    <p>
+                                        <img src="dist/img/check-out.png" />
+
+                                        <asp:Label ID="lblCheckOut" runat="server" Text="Check Out"></asp:Label>
+                                    </p>
+                                </a>
+                            </li>
+                            <li class="nav-item" id="lnkTimeOut" runat="server">
+                                <a href="Timeout.aspx" class="nav-link" id="aTimeOut" runat="server">
+                                    <%--   <i class="nav-icon fas fa-chart-pie"></i>--%>
+                                    <p>
+                                        <img src="dist/img/time-out.png" />
+                                        <asp:Label ID="lblTimeOut" runat="server" Text="Time Out"></asp:Label>
+
+
+
+                                    </p>
+                                </a>
+
+                            </li>
+                            <li class="nav-item" id="lnkWatchList" runat="server">
+                                <a href="Watchlist.aspx" class="nav-link" id="aWatchList" runat="server">
+                                    <%--  <i class="nav-icon fas fa-tree"></i>--%>
+                                    <p>
+
+                                        <img src="dist/img/watch-list.png" />
+                                        <asp:Label ID="lblWatchList" runat="server" Text="Watch List"></asp:Label>
+
+
+                                    </p>
+                                </a>
+
+                            </li>
+
+                            <li class="nav-header" id="lnlReports" runat="server">
+                                <asp:Label ID="lblReports" runat="server" Text="Reports"></asp:Label>
+                            </li>
+
+                            <li class="nav-item" id="lnkVisMas" runat="server">
+                                <a href="VisitorMaster.aspx" class="nav-link" id="aVisMas" runat="server">
+                                    <p>
+                                        <img src="dist/img/visitor-master-report.png" />
+
+                                        <asp:Label ID="lblVisMasRpt" runat="server" Text="Visitor Master Reports"></asp:Label>
+                                    </p>
+                                </a>
+                            </li>
+                            <li class="nav-item" id="lnkVisTran" runat="server">
+                                <a href="VisitorTransaction.aspx" class="nav-link" id="aVisTrans" runat="server">
+                                    <p>
+                                        <img src="dist/img/visitor-transaction-report.png" />
+
+                                        <asp:Label ID="lblVisTrans" runat="server" Text="Visitor Transaction"></asp:Label>
+                                    </p>
+                                </a>
+                            </li>
+                            <li class="nav-item" id="lnkAllReqReport" runat="server">
+                                <a href="AllRequestReport.aspx" class="nav-link" id="aAllReqReport" runat="server">
+                                    <p>
+                                        <img src="dist/img/visitor-master-report.png" />
+
+                                        <asp:Label ID="lblAllReqReport" runat="server" Text="All Request Reports"></asp:Label>
+                                    </p>
+                                </a>
+                            </li>
+                            <li class="nav-header" id="lnkpre" runat="server">
+                                <asp:Label ID="lblpreReg" runat="server" Text="Invitation"></asp:Label>
+                            </li>
+
+                            <li class="nav-item" id="lnkPrereg" runat="server">
+                                <a href="VisitorInvite.aspx" class="nav-link" id="aPrereg" runat="server">
+
+                                    <p>
+                                        <img src="dist/img/visitor-invite.png" />
+
+                                        <asp:Label ID="lblVisitorInvite" runat="server" Text="Visitor Invite"></asp:Label>
+                                    </p>
+                                </a>
+                            </li>
+
+
+                            <li class="nav-header" id="lnkRequest" runat="server">
+                                <asp:Label ID="Label11" runat="server" Text="Request"></asp:Label>
+                            </li>
+
+                            <li class="nav-item" id="lnkRqstlistAll" runat="server" >
+                                <a href="Requestlist.aspx?Stat=All" class="nav-link" id="aAll" runat="server">
+
+                                    <p>
+                                        <img src="dist/img/visitor-invite.png" />
+
+                                        <asp:Label ID="Label12" runat="server" Text="All Request"></asp:Label>
+                                    </p>
+                                </a>
+                            </li>
+                            <li class="nav-item" id="lnkRqstlistAccepted" runat="server" >
+                                <a href="Requestlist.aspx?Stat=Accepted" class="nav-link" id="aAccepted" runat="server">
+
+                                    <p>
+                                        <img src="dist/img/visitor-invite.png" />
+
+                                        <asp:Label ID="Label13" runat="server" Text="Accepted Request"></asp:Label>
+                                    </p>
+                                </a>
+                            </li>
+                            <li class="nav-item" id="lnkRqstlistPending" runat="server" >
+                                <a href="Requestlist.aspx?Stat=Pending" class="nav-link" id="aPending" runat="server">
+
+                                    <p>
+                                        <img src="dist/img/visitor-invite.png" />
+
+                                        <asp:Label ID="Label14" runat="server" Text="Pending Request"></asp:Label>
+                                    </p>
+                                </a>
+                            </li>
+                            <li class="nav-item" id="lnkRqstlistRejected" runat="server" >
+                                <a href="Requestlist.aspx?Stat=Rejected" class="nav-link" id="aRejected" runat="server">
+
+                                    <p>
+                                        <img src="dist/img/visitor-invite.png" />
+
+                                        <asp:Label ID="Label15" runat="server" Text="Rejected Request"></asp:Label>
+                                    </p>
+                                </a>
+                            </li>
+                            <li class="nav-header" id="lnkSetting" runat="server">
+                                <asp:Label ID="Label1" runat="server" Text="Settings"></asp:Label>
+                            </li>
+                            <li class="nav-item" id="lnkLocation" runat="server">
+                                <a href="Masters.aspx?masid=Location" class="nav-link" id="aLocation" runat="server">
+                                    <p>
+                                        <img src="dist/img/location.png" />
+
+                                        <asp:Label ID="Label16" runat="server" Text="Location"></asp:Label>
+                                    </p>
+                                </a>
+                            </li>
+                            <li class="nav-item" id="liDepart" runat="server">
+                                <a href="Masters.aspx?masid=Department" class="nav-link" id="adepart" runat="server">
+                                    <p>
+                                        <img src="dist/img/Department.png" />
+
+                                        <asp:Label ID="Label34" runat="server" Text="Department"></asp:Label>
+                                    </p>
+                                </a>
+                            </li>
+                            <li class="nav-item" id="liFloor" runat="server" style="display: none;">
+                                <a href="Masters.aspx?masid=Floor" class="nav-link" id="aFloor" runat="server">
+                                    <p>
+                                        <img src="dist/img/Floor.png" />
+
+                                        <asp:Label ID="Label4" runat="server" Text="Floor"></asp:Label>
+                                    </p>
+                                </a>
+                            </li>
+                            <li class="nav-item" id="liEmployee" runat="server">
+                                <a href="Masters.aspx?masid=Employee" class="nav-link" id="aEmployee" runat="server">
+                                    <p>
+                                        <img src="dist/img/employee.png" />
+
+                                        <asp:Label ID="Label5" runat="server" Text="Employee/Host"></asp:Label>
+                                    </p>
+                                </a>
+                            </li>
+                            <li class="nav-item" id="liVisitorType" runat="server">
+                                <a href="Masters.aspx?masid=VisitorType" class="nav-link" id="aVisitorType" runat="server">
+                                    <p>
+                                        <img src="dist/img/usertype.png" />
+
+                                        <asp:Label ID="Label6" runat="server" Text="Visitor Type"></asp:Label>
+                                    </p>
+                                </a>
+                            </li>
+                            <li class="nav-item" id="lnkPurpose" runat="server">
+                                <a href="Masters.aspx?masid=Purpose" class="nav-link" id="aPurpose" runat="server">
+                                    <p>
+                                        <img src="dist/img/Floor.png" />
+
+                                        <asp:Label ID="Label17" runat="server" Text="Purpose"></asp:Label>
+                                    </p>
+                                </a>
+                            </li>
+                            <li class="nav-item" id="lnkCard" runat="server" style="display: none;">
+                                <a href="Masters.aspx?masid=Card" class="nav-link" id="aCard" runat="server">
+                                    <p>
+                                        <img src="dist/img/visitor-transaction-report.png" />
+
+                                        <asp:Label ID="Label7" runat="server" Text="Card"></asp:Label>
+                                    </p>
+                                </a>
+                            </li>
+
+                            <li class="nav-item" id="liUser" runat="server">
+                                <a href="Userlists.aspx" class="nav-link" id="aUser" runat="server">
+                                    <p>
+                                        <img src="dist/img/user.png" />
+
+                                        <asp:Label ID="Label8" runat="server" Text="User"></asp:Label>
+                                    </p>
+                                </a>
+                            </li>
+
+                            <%-- Change by swati - added two new menu --%>
+                            <li class="nav-item" id="li1" runat="server">
+                                <a href="UserRole.aspx" class="nav-link" id="a1" runat="server">
+                                    <p>
+                                        <img src="dist/img/role-model.png" />
+
+                                        <asp:Label ID="Label19" runat="server" Text="User Type"></asp:Label>
+                                    </p>
+                                </a>
+                            </li>
+
+                            <li class="nav-item" id="li2" runat="server">
+                                <a href="ApprovalSetting.aspx" class="nav-link" id="a2" runat="server">
+                                    <p>
+                                        <img src="dist/img/mail.png" />
+
+                                        <asp:Label ID="Label20" runat="server" Text="Approval setting"></asp:Label>
+                                    </p>
+                                </a>
+                            </li>
+
+                            <li class="nav-item" id="liMail" runat="server">
+                                <a href="MailSettings.aspx" class="nav-link" id="aMail" runat="server">
+                                    <p>
+                                        <img src="dist/img/mail.png" />
+
+                                        <asp:Label ID="Label9" runat="server" Text="Mail setting"></asp:Label>
+                                    </p>
+                                </a>
+                            </li>
+                            <li class="nav-item" id="liMailtemplate" runat="server">
+                                <a href="EmailTemplate.aspx" class="nav-link" id="aMailtemplate" runat="server">
+                                    <p>
+                                        <img src="dist/img/mail.png" />
+
+                                        <asp:Label ID="Label18" runat="server" Text="Mail Template"></asp:Label>
+                                    </p>
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
+                    <!-- /.sidebar-menu -->
+                </div>
+                <!-- /.sidebar -->
+            </aside>
+
+
+            <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+            </asp:ContentPlaceHolder>
+
+
+
+
+            <footer class="main-footer">
+                <strong>Copyright &copy; 2023-2025 <a href="https://space.gov.ae/" style="color: #b68a35">UAE Space Agency</a>.</strong>
+                All rights reserved.
+   
+                <div class="float-right d-none d-sm-inline-block">
+                    <b>Version</b> 3.1.0
+                 
+                    <asp:HiddenField ID="hdnlang" runat="server" />
+                    <asp:Button ID="btnLang" runat="server" OnClick="btnLang_Click" Width="0px" Height="0px" />
+                </div>
+            </footer>
+        </div>
+    </form>
+    <script src="plugins/jquery/jquery.min.js"></script>
+    <!-- Bootstrap -->
+    <script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <!-- overlayScrollbars -->
+    <script src="plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
+
+    <script src="plugins/select2/js/select2.full.min.js"></script>
+
+    <!-- Bootstrap4 Duallistbox -->
+    <script src="plugins/bootstrap4-duallistbox/jquery.bootstrap-duallistbox.min.js"></script>
+    <!-- InputMask -->
+    <script src="plugins/moment/moment.min.js"></script>
+    <script src="plugins/inputmask/jquery.inputmask.min.js"></script>
+    <!-- date-range-picker -->
+    <script src="plugins/daterangepicker/daterangepicker.js"></script>
+    <!-- bootstrap color picker -->
+    <script src="plugins/bootstrap-colorpicker/js/bootstrap-colorpicker.min.js"></script>
+    <!-- Tempusdominus Bootstrap 4 -->
+    <script src="plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
+    <!-- Bootstrap Switch -->
+    <script src="plugins/bootstrap-switch/js/bootstrap-switch.min.js"></script>
+    <!-- BS-Stepper -->
+    <script src="plugins/bs-stepper/js/bs-stepper.min.js"></script>
+    <!-- dropzonejs -->
+    <script src="plugins/dropzone/min/dropzone.min.js"></script>
+    <!-- AdminLTE App -->
+    <script src="dist/js/adminlte.js"></script>
+
+    <!-- PAGE PLUGINS -->
+    <!-- jQuery Mapael -->
+    <script src="plugins/jquery-mousewheel/jquery.mousewheel.js"></script>
+    <script src="plugins/raphael/raphael.min.js"></script>
+    <script src="plugins/jquery-mapael/jquery.mapael.min.js"></script>
+    <script src="plugins/jquery-mapael/maps/usa_states.min.js"></script>
+    <!-- ChartJS -->
+    <script src="plugins/chart.js/Chart.min.js"></script>
+
+    <!-- AdminLTE for demo purposes -->
+    <script src="dist/js/demo.js"></script>
+    <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
+    <script src="dist/js/pages/dashboard2.js"></script>
+
+
+    <script src="plugins/summernote/summernote-bs4.min.js"></script>
+    <!-- CodeMirror -->
+    <script src="plugins/codemirror/codemirror.js"></script>
+    <script src="plugins/codemirror/mode/css/css.js"></script>
+    <script src="plugins/codemirror/mode/xml/xml.js"></script>
+    <script src="plugins/codemirror/mode/htmlmixed/htmlmixed.js"></script>
+
+
+    <script>
+        $(function () {
+            // Summernote
+            $('#summernote').summernote()
+
+            // CodeMirror
+            CodeMirror.fromTextArea(document.getElementById("codeMirrorDemo"), {
+                mode: "htmlmixed",
+                theme: "monokai"
+            });
+
+        })
+</script>
+
+    <script>
+      $(function () {
+     
+
+        setInterval(function () {
+          console.clear();
+          console.log(Array(100).join("\n".repeat('25')));
+      }, 500);
+
+            //Initialize Select2 Elements
+            $('.select2').select2()
+
+            //Initialize Select2 Elements
+            $('.select2bs4').select2({
+                theme: 'bootstrap4'
+            })
+
+            //Datemask dd/mm/yyyy
+            $('#datemask').inputmask('dd/mm/yyyy', { 'placeholder': 'dd/mm/yyyy' })
+            //Datemask2 mm/dd/yyyy
+            $('#datemask2').inputmask('mm/dd/yyyy', { 'placeholder': 'mm/dd/yyyy' })
+            //Money Euro
+            $('[data-mask]').inputmask()
+
+            //Date picker
+            $('#reservationdate').datetimepicker({
+                format: 'L'
+            });
+
+            //Date and time picker
+            $('#reservationdatetime').datetimepicker({ icons: { time: 'far fa-clock' } });
+
+            //Date range picker
+            $('#reservation').daterangepicker()
+            //Date range picker with time picker
+            $('#reservationtime').daterangepicker({
+                timePicker: true,
+                timePickerIncrement: 30,
+                locale: {
+                    format: 'MM/DD/YYYY hh:mm A'
+                }
+            })
+            //Date range as a button
+            $('#daterange-btn').daterangepicker(
+                {
+                    ranges: {
+                        'Today': [moment(), moment()],
+                        'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+                        'Last 7 Days': [moment().subtract(6, 'days'), moment()],
+                        'Last 30 Days': [moment().subtract(29, 'days'), moment()],
+                        'This Month': [moment().startOf('month'), moment().endOf('month')],
+                        'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+                    },
+                    startDate: moment().subtract(29, 'days'),
+                    endDate: moment()
+                },
+                function (start, end) {
+                    $('#reportrange span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'))
+                }
+            )
+
+            //Timepicker
+            $('#timepicker').datetimepicker({
+                format: 'LT'
+            })
+
+            //Bootstrap Duallistbox
+            $('.duallistbox').bootstrapDualListbox()
+
+            //Colorpicker
+            $('.my-colorpicker1').colorpicker()
+            //color picker with addon
+            $('.my-colorpicker2').colorpicker()
+
+            $('.my-colorpicker2').on('colorpickerChange', function (event) {
+                $('.my-colorpicker2 .fa-square').css('color', event.color.toString());
+            })
+
+            $("input[data-bootstrap-switch]").each(function () {
+                $(this).bootstrapSwitch('state', $(this).prop('checked'));
+            })
+
+        })
+        // BS-Stepper Init
+        document.addEventListener('DOMContentLoaded', function () {
+            window.stepper = new Stepper(document.querySelector('.bs-stepper'))
+        })
+
+        // DropzoneJS Demo Code Start
+        Dropzone.autoDiscover = false
+
+        //// Get the template HTML and remove it from the doumenthe template HTML and remove it from the doument
+        //var previewNode = document.querySelector("#template")
+        //previewNode.id = ""
+        //var previewTemplate = previewNode.parentNode.innerHTML
+        //previewNode.parentNode.removeChild(previewNode)
+
+        var myDropzone = new Dropzone(document.body, { // Make the whole body a dropzone
+            url: "/target-url", // Set the url
+            thumbnailWidth: 80,
+            thumbnailHeight: 80,
+            parallelUploads: 20,
+            //previewTemplate: previewTemplate,
+            autoQueue: false, // Make sure the files aren't queued until manually added
+            previewsContainer: "#previews", // Define the container to display the previews
+            clickable: ".fileinput-button" // Define the element that should be used as click trigger to select files.
+        })
+
+        myDropzone.on("addedfile", function (file) {
+            // Hookup the start button
+            file.previewElement.querySelector(".start").onclick = function () { myDropzone.enqueueFile(file) }
+        })
+
+        // Update the total progress bar
+        myDropzone.on("totaluploadprogress", function (progress) {
+            document.querySelector("#total-progress .progress-bar").style.width = progress + "%"
+        })
+
+        myDropzone.on("sending", function (file) {
+            // Show the total progress bar when upload starts
+            document.querySelector("#total-progress").style.opacity = "1"
+            // And disable the start button
+            file.previewElement.querySelector(".start").setAttribute("disabled", "disabled")
+        })
+
+        // Hide the total progress bar when nothing's uploading anymore
+        myDropzone.on("queuecomplete", function (progress) {
+            document.querySelector("#total-progress").style.opacity = "0"
+        })
+
+        // Setup the buttons for all transfers
+        // The "add files" button doesn't need to be setup because the config
+        // `clickable` has already been specified.
+        document.querySelector("#actions .start").onclick = function () {
+            myDropzone.enqueueFiles(myDropzone.getFilesWithStatus(Dropzone.ADDED))
+        }
+        document.querySelector("#actions .cancel").onclick = function () {
+            myDropzone.removeAllFiles(true)
+        }
+      // DropzoneJS Demo Code End
+ 
+    </script>
+ 
+
+</body>
+</html>

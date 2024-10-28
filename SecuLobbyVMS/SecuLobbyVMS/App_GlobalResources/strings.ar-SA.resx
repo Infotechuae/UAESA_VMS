@@ -1,0 +1,471 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="STRN_1" xml:space="preserve">
+    <value>الإدارة</value>
+  </data>
+  <data name="STRN_10" xml:space="preserve">
+    <value>إعدادات</value>
+  </data>
+  <data name="STRN_11" xml:space="preserve">
+    <value>إخلاء طارئ</value>
+  </data>
+  <data name="STRN_12" xml:space="preserve">
+    <value>طلب اليوم</value>
+  </data>
+  <data name="STRN_13" xml:space="preserve">
+    <value>تقرير إحصائيات الزوار</value>
+  </data>
+  <data name="STRN_14" xml:space="preserve">
+    <value>نوع الزائر</value>
+  </data>
+  <data name="STRN_15" xml:space="preserve">
+    <value>تفاصيل الزائر</value>
+  </data>
+  <data name="STRN_16" xml:space="preserve">
+    <value>تفاصيل الزيارة</value>
+  </data>
+  <data name="STRN_17" xml:space="preserve">
+    <value>اضف جديد</value>
+  </data>
+  <data name="STRN_18" xml:space="preserve">
+    <value>احفظ التغييرات</value>
+  </data>
+  <data name="STRN_19" xml:space="preserve">
+    <value>دور</value>
+  </data>
+  <data name="STRN_2" xml:space="preserve">
+    <value>الموظف/المضيف</value>
+  </data>
+  <data name="STRN_20" xml:space="preserve">
+    <value>نوع المستخدم</value>
+  </data>
+  <data name="STRN_21" xml:space="preserve">
+    <value>حفظ</value>
+  </data>
+  <data name="STRN_22" xml:space="preserve">
+    <value>نوع البريد الإلكتروني</value>
+  </data>
+  <data name="STRN_23" xml:space="preserve">
+    <value>خادم SMTP</value>
+  </data>
+  <data name="STRN_24" xml:space="preserve">
+    <value>كلمة المرور</value>
+  </data>
+  <data name="STRN_25" xml:space="preserve">
+    <value>رقم المنفذ</value>
+  </data>
+  <data name="STRN_26" xml:space="preserve">
+    <value>مطلوب SSL</value>
+  </data>
+  <data name="STRN_27" xml:space="preserve">
+    <value>اسم البريد الإلكتروني</value>
+  </data>
+  <data name="STRN_28" xml:space="preserve">
+    <value>إعداد الدليل النشط</value>
+  </data>
+  <data name="STRN_29" xml:space="preserve">
+    <value>اسم حساب الخدمة</value>
+  </data>
+  <data name="STRN_3" xml:space="preserve">
+    <value>نوع الزائر</value>
+  </data>
+  <data name="STRN_30" xml:space="preserve">
+    <value>مسار المجال</value>
+  </data>
+  <data name="STRN_31" xml:space="preserve">
+    <value>كلمة مرور الحساب</value>
+  </data>
+  <data name="STRN_32" xml:space="preserve">
+    <value>البريد الإلكتروني ل</value>
+  </data>
+  <data name="STRN_33" xml:space="preserve">
+    <value>موضوع البريد الإلكتروني</value>
+  </data>
+  <data name="STRN_34" xml:space="preserve">
+    <value>هيئة البريد الإلكتروني</value>
+  </data>
+  <data name="STRN_35" xml:space="preserve">
+    <value>يحصل AD</value>
+  </data>
+  <data name="STRN_36" xml:space="preserve">
+    <value>بطاقة تعريف</value>
+  </data>
+  <data name="STRN_37" xml:space="preserve">
+    <value>اسم</value>
+  </data>
+  <data name="STRN_38" xml:space="preserve">
+    <value>هاتف</value>
+  </data>
+  <data name="STRN_39" xml:space="preserve">
+    <value>معرف المستخدم</value>
+  </data>
+  <data name="STRN_4" xml:space="preserve">
+    <value>غاية</value>
+  </data>
+  <data name="STRN_40" xml:space="preserve">
+    <value>بحث</value>
+  </data>
+  <data name="STRN_41" xml:space="preserve">
+    <value>طلب</value>
+  </data>
+  <data name="STRN_42" xml:space="preserve">
+    <value>كل الطلبات</value>
+  </data>
+  <data name="STRN_43" xml:space="preserve">
+    <value>تم قبول الطلب</value>
+  </data>
+  <data name="STRN_44" xml:space="preserve">
+    <value>الطلب في انتظار المراجعة</value>
+  </data>
+  <data name="STRN_45" xml:space="preserve">
+    <value>طلب مرفوض</value>
+  </data>
+  <data name="STRN_46" xml:space="preserve">
+    <value>إغلاق</value>
+  </data>
+  <data name="STRN_47" xml:space="preserve">
+    <value>السبب</value>
+  </data>
+  <data name="STRN_48" xml:space="preserve">
+    <value>جميع تقارير الطلبات</value>
+  </data>
+  <data name="STRN_49" xml:space="preserve">
+    <value>بطاقة</value>
+  </data>
+  <data name="STRN_5" xml:space="preserve">
+    <value>مستخدم</value>
+  </data>
+  <data name="STRN_50" xml:space="preserve">
+    <value>الموظف / المضيف</value>
+  </data>
+  <data name="STRN_51" xml:space="preserve">
+    <value>تعديل</value>
+  </data>
+  <data name="STRN_52" xml:space="preserve">
+    <value>مسح</value>
+  </data>
+  <data name="STRN_53" xml:space="preserve">
+    <value>اسم المدير</value>
+  </data>
+  <data name="STRN_54" xml:space="preserve">
+    <value>البريد الإلكتروني للمدير</value>
+  </data>
+  <data name="STRN_6" xml:space="preserve">
+    <value>دور المستخدم</value>
+  </data>
+  <data name="STRN_7" xml:space="preserve">
+    <value>إعداد الموافقة</value>
+  </data>
+  <data name="STRN_8" xml:space="preserve">
+    <value>إعداد البريد</value>
+  </data>
+  <data name="STRN_9" xml:space="preserve">
+    <value>قالب البريد</value>
+  </data>
+  <data name="STR_1" xml:space="preserve">
+    <value>تفاصيل الزائر</value>
+  </data>
+  <data name="STR_10" xml:space="preserve">
+    <value>تفاصيل الزيارة</value>
+  </data>
+  <data name="STR_11" xml:space="preserve">
+    <value>الإدارة</value>
+  </data>
+  <data name="STR_12" xml:space="preserve">
+    <value>الطابق</value>
+  </data>
+  <data name="STR_13" xml:space="preserve">
+    <value>المستضيف</value>
+  </data>
+  <data name="STR_14" xml:space="preserve">
+    <value>نوع الزائر</value>
+  </data>
+  <data name="STR_15" xml:space="preserve">
+    <value>مدة الزيارة</value>
+  </data>
+  <data name="STR_16" xml:space="preserve">
+    <value>ملاحظات</value>
+  </data>
+  <data name="STR_17" xml:space="preserve">
+    <value>تحميل البيانات</value>
+  </data>
+  <data name="STR_18" xml:space="preserve">
+    <value>دخول</value>
+  </data>
+  <data name="STR_19" xml:space="preserve">
+    <value>إعادة ضبط</value>
+  </data>
+  <data name="STR_2" xml:space="preserve">
+    <value>الاسم الكامل</value>
+  </data>
+  <data name="STR_20" xml:space="preserve">
+    <value>لوحة المعلومات</value>
+  </data>
+  <data name="STR_21" xml:space="preserve">
+    <value>خروج</value>
+  </data>
+  <data name="STR_22" xml:space="preserve">
+    <value>الوقت في الخارج</value>
+  </data>
+  <data name="STR_23" xml:space="preserve">
+    <value>قائمة المراقبة</value>
+  </data>
+  <data name="STR_24" xml:space="preserve">
+    <value>التقارير</value>
+  </data>
+  <data name="STR_25" xml:space="preserve">
+    <value>تقارير الزائر الرئيسية</value>
+  </data>
+  <data name="STR_26" xml:space="preserve">
+    <value>معاملات الزائر</value>
+  </data>
+  <data name="STR_27" xml:space="preserve">
+    <value>تغيير كلمة المرور</value>
+  </data>
+  <data name="STR_28" xml:space="preserve">
+    <value>تسجيل خروج</value>
+  </data>
+  <data name="STR_29" xml:space="preserve">
+    <value>جاهز للمغادرة</value>
+  </data>
+  <data name="STR_3" xml:space="preserve">
+    <value>رقم الهوية</value>
+  </data>
+  <data name="STR_30" xml:space="preserve">
+    <value>حدد تسجيل الخروج أدناه إذا كنت مستعدًا لإنهاء جلستك الحالية.</value>
+  </data>
+  <data name="STR_31" xml:space="preserve">
+    <value>إلغاء</value>
+  </data>
+  <data name="STR_32" xml:space="preserve">
+    <value>كلمة المرور الجديدة</value>
+  </data>
+  <data name="STR_33" xml:space="preserve">
+    <value>تأكيد كلمة المرور</value>
+  </data>
+  <data name="STR_34" xml:space="preserve">
+    <value>تغيير</value>
+  </data>
+  <data name="STR_35" xml:space="preserve">
+    <value>موعد</value>
+  </data>
+  <data name="STR_36" xml:space="preserve">
+    <value>تقرير الزائر الشهري</value>
+  </data>
+  <data name="STR_37" xml:space="preserve">
+    <value>إحصائيات</value>
+  </data>
+  <data name="STR_38" xml:space="preserve">
+    <value>تقرير إحصائيات الزوار</value>
+  </data>
+  <data name="STR_39" xml:space="preserve">
+    <value>اسم الزائر</value>
+  </data>
+  <data name="STR_4" xml:space="preserve">
+    <value>تاريخ الانتهاء</value>
+  </data>
+  <data name="STR_40" xml:space="preserve">
+    <value>معرف الزائر</value>
+  </data>
+  <data name="STR_41" xml:space="preserve">
+    <value>إزالة من قائمة المراقبة</value>
+  </data>
+  <data name="STR_42" xml:space="preserve">
+    <value>تصدير PDF</value>
+  </data>
+  <data name="STR_43" xml:space="preserve">
+    <value>تصدير Excel</value>
+  </data>
+  <data name="STR_44" xml:space="preserve">
+    <value>صورة الزائر</value>
+  </data>
+  <data name="STR_45" xml:space="preserve">
+    <value>من تاريخ</value>
+  </data>
+  <data name="STR_46" xml:space="preserve">
+    <value>إلى تاريخ</value>
+  </data>
+  <data name="STR_47" xml:space="preserve">
+    <value>تقرير معاملات الزائر</value>
+  </data>
+  <data name="STR_48" xml:space="preserve">
+    <value>انشاء تقرير</value>
+  </data>
+  <data name="STR_49" xml:space="preserve">
+    <value>التسجيل المسبق</value>
+  </data>
+  <data name="STR_5" xml:space="preserve">
+    <value>اسم الشركة</value>
+  </data>
+  <data name="STR_50" xml:space="preserve">
+    <value>دعوة زائر</value>
+  </data>
+  <data name="STR_51" xml:space="preserve">
+    <value>معلومات مقدم الطلب</value>
+  </data>
+  <data name="STR_52" xml:space="preserve">
+    <value>ارسل دعوة</value>
+  </data>
+  <data name="STR_53" xml:space="preserve">
+    <value>اسم الطالب</value>
+  </data>
+  <data name="STR_54" xml:space="preserve">
+    <value>معلومات الاجتماع</value>
+  </data>
+  <data name="STR_55" xml:space="preserve">
+    <value>اسم الاجتماع</value>
+  </data>
+  <data name="STR_56" xml:space="preserve">
+    <value>الموقع</value>
+  </data>
+  <data name="STR_57" xml:space="preserve">
+    <value>التاريخ</value>
+  </data>
+  <data name="STR_58" xml:space="preserve">
+    <value>الوقت</value>
+  </data>
+  <data name="STR_59" xml:space="preserve">
+    <value>تاريخ البدء</value>
+  </data>
+  <data name="STR_6" xml:space="preserve">
+    <value>رقم الهاتف المحمول</value>
+  </data>
+  <data name="STR_60" xml:space="preserve">
+    <value>تاريخ الانتهاء</value>
+  </data>
+  <data name="STR_61" xml:space="preserve">
+    <value>الغاية</value>
+  </data>
+  <data name="STR_62" xml:space="preserve">
+    <value>تقويم المواعيد</value>
+  </data>
+  <data name="STR_63" xml:space="preserve">
+    <value>طارئ</value>
+  </data>
+  <data name="STR_7" xml:space="preserve">
+    <value>البريد الإلكتروني</value>
+  </data>
+  <data name="STR_8" xml:space="preserve">
+    <value>الجنسية</value>
+  </data>
+  <data name="STR_9" xml:space="preserve">
+    <value>الجنس</value>
+  </data>
+</root>
