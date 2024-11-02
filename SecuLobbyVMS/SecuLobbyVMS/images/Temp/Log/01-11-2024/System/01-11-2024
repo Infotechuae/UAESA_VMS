@@ -1,0 +1,17 @@
+
+Date and Time : 11/1/2024 4:46:18 PM ; Message : Mail Started
+
+Date and Time : 11/1/2024 4:46:18 PM ; Message : Mail setting :vms@space.gov.ae , Sp@cE2024## , smtp.space.gov.ae , 587 , Others , True
+Date and Time : 11/1/2024 4:46:18 PM ; Message : Mail To: ameerab@infotechuae.com
+Date and Time : 11/1/2024 4:46:18 PM ; Message : Mail Body :<p> Dear Ameera,</p><p>  You have successfully registered as visitor. Your OTP for registration is 5568321. Use this OTP to validate your registration. </p>
+Date and Time : 11/1/2024 4:46:18 PM ; Message : Step 3
+Date and Time : 11/1/2024 4:46:18 PM ; Message : System.Net.Mail.SmtpException: Failure sending mail. ---> System.Net.WebException: The remote name could not be resolved: 'smtp.space.gov.ae'
+   at System.Net.ServicePoint.GetConnection(PooledStream PooledStream, Object owner, Boolean async, IPAddress& address, Socket& abortSocket, Socket& abortSocket6)
+   at System.Net.PooledStream.Activate(Object owningObject, Boolean async, GeneralAsyncDelegate asyncCallback)
+   at System.Net.ConnectionPool.GetConnection(Object owningObject, GeneralAsyncDelegate asyncCallback, Int32 creationTimeout)
+   at System.Net.Mail.SmtpConnection.GetConnection(ServicePoint servicePoint)
+   at System.Net.Mail.SmtpClient.GetConnection()
+   at System.Net.Mail.SmtpClient.Send(MailMessage message)
+   --- End of inner exception stack trace ---
+   at System.Net.Mail.SmtpClient.Send(MailMessage message)
+   at SecuLobbyVMS.Register.SendEmail(String sName, String sEmail, String sOTP) in D:\INFOTECH\Software Projects\UAESA\UAESA VMS\SecuLobbyVMS\SecuLobbyVMS\Register.aspx.cs:line 230

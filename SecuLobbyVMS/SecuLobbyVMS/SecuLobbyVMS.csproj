@@ -3024,6 +3024,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="App_Start\" />
+    <Folder Include="images\Temp\Log\" />
     <Folder Include="images\VisitorImages\" />
   </ItemGroup>
   <ItemGroup>

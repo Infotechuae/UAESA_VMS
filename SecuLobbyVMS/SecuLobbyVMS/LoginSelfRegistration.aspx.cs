@@ -197,7 +197,7 @@ namespace SecuLobbyVMS
       string RoleID = "";
       string User_Type;
       userName = WindowsIdentity.GetCurrent().Name.ToString();
-      if (txtusername.Text.Equals(userName.Substring(userName.LastIndexOf("\\") + 1)))
+      if (txtusername.Text!="")
       {
         string[,] infoArray = new string[3, 2];
         infoArray[0, 0] = "usercode";
@@ -206,7 +206,7 @@ namespace SecuLobbyVMS
         //infoArray[1, 1] = EncryptDecryptHelper.Encrypt(txtpassword.Text.Trim());
         infoArray[1, 1] = EncryptQRCODE(txtpassword.Text.Trim());
         infoArray[2, 0] = "MecID";
-        infoArray[2, 1] = "WINAUTH";
+        infoArray[2, 1] = "";
         //   DAL.Utils.fetchRecordsDs("select userID, UserName,FullName,Pwd, Def_Loc_ID, Usr_group from User_Master where UserName='" + txtusername.Value + "'  and Pwd= '" + txtpassword.Value + "'", MyConnection.ReadConStr("Local"));
         dsLogin = DAL.Utils.fetchDSRecordsSP("User_Read", infoArray, "User_Read", MyConnection.ReadConStr("Local"));
         DT = dsLogin.Tables[0];
@@ -276,7 +276,7 @@ namespace SecuLobbyVMS
 
             if (UserID.Length > 0)
             {
-                Response.Redirect("SelfRegistrationApproval.aspx?tabid=0&id=");
+                Response.Redirect("SelfRegistration.aspx");
             }
             else
             {

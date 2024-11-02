@@ -1221,5 +1221,58 @@ namespace SecuLobbyVMS
 
       return Template;
     }
+
+    public static void CreateLog(string sMessage)
+    {
+
+      //System.Data.DataRow drUser = ((System.Data.DataRow)System.Web.HttpContext.Current.Session["UserInfoRow"]);
+      string sUserID = "System";
+      string sError = Environment.NewLine + "Date and Time : " + DateTime.Now + " ; Message : " + sMessage;
+      string InitialPath = System.Web.HttpContext.Current.Server.MapPath("~/images/Temp/Log");
+      if (!System.IO.Directory.Exists(InitialPath)) //Log Folder Checking 
+      {
+        System.IO.Directory.CreateDirectory(InitialPath);
+      }
+      string SubFolderRelativePath = Convert.ToString(DateTime.Today.ToString("dd-MM-yyyy"));//First SubFolder Name
+
+      string subfolderPath = System.IO.Path.Combine(InitialPath, SubFolderRelativePath);//First Sub Folder Path 
+      string subOfsubFolder = System.IO.Path.Combine(subfolderPath, Convert.ToString(sUserID));//Second SubFolder Path 
+      string tempFilePath = System.IO.Path.Combine(subOfsubFolder, Convert.ToString(DateTime.Today.ToString("dd-MM-yyyy")));// Text File Path
+
+      System.IO.DirectoryInfo tempFolder = new System.IO.DirectoryInfo(InitialPath); //Initial Path
+      System.IO.DirectoryInfo newTempPath = new System.IO.DirectoryInfo(subfolderPath); //First Sub Folder Path in DirectoryInfo
+
+      string[] sErr = { sError };
+
+      if (!System.IO.Directory.Exists(subfolderPath)) // First Sub Folder Check
+      {
+        System.IO.DirectoryInfo subFolder = tempFolder.CreateSubdirectory(SubFolderRelativePath); // First SubFolder Create Using Date(Folder Name)
+
+
+        #region CreateSubFolderOfSubFolder
+        System.IO.DirectoryInfo subfolderOfSub = subFolder.CreateSubdirectory(Convert.ToString(sUserID));// Second SubFolder Create Using UserID(Folder Name)
+        #endregion
+
+        System.IO.File.WriteAllLines(tempFilePath, sErr); // File Creation
+      }
+      else
+      {
+        #region CreateSubFolder
+        if (!System.IO.Directory.Exists(subOfsubFolder))  // Second Sub Folder Check
+        {
+          #region CreateSubFolderOfSubFolder
+          System.IO.DirectoryInfo subfolderOfSub = newTempPath.CreateSubdirectory(Convert.ToString(sUserID));// Second SubFolder Create Using UserID(Folder Name)
+          System.IO.File.WriteAllLines(tempFilePath, sErr);
+          #endregion
+        }
+        else
+        {
+          System.IO.File.AppendAllText(tempFilePath, sError);
+        }
+
+        #endregion
+      }
+
+    }
   }
 }

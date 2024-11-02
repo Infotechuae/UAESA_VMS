@@ -124,11 +124,16 @@ namespace SecuLobbyVMS.App_Code
           }
           else
           {
+            ServicePointManager.ServerCertificateValidationCallback = (sender1, cert, chain, sslPolicyErrors) => true;
+            System.Net.ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls;
+            System.Net.ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
 
+            //commented by shafeeq
             SmtpClient client = new SmtpClient();
             client.UseDefaultCredentials = false;
             client.Port = Convert.ToInt16(EmailPort); // Usually 587 for STARTTLS
             client.Host = EmailSMTP;
+
             NetworkCredential basicCredential = new NetworkCredential(AccountName, EmailPassword);
             client.Credentials = basicCredential;
             client.Timeout = (60 * 5 * 1000);
