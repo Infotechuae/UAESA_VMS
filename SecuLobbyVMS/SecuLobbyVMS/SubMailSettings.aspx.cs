@@ -95,12 +95,138 @@ namespace SecuLobbyVMS
       Response.Redirect("MailSettings.aspx");
     }
 
+    //protected void btnGetAD_Click(object sender, EventArgs e)
+    //{
+    //  var ServiceAccountName = txtServiceAccountName.Text.Trim();
+
+    //  var DomainPath = txtDomainPath.Text.Trim();
+    //  string strOUS = textOUS.Text.Trim();
+    //  var OUS = new List<string>();
+
+    //  string[] OUSLines = strOUS.Split(';');
+
+
+    //  foreach (var OUSLine in OUSLines)
+    //  {
+    //    OUS.Add(OUSLine);
+    //  }
+
+    //  string sSql = "SELECT ID, ADServiceAccountPassword  FROM MailSettings";
+    //  DataTable dtMailSetting = ocon.GetTable(sSql, new DataSet());
+    //  string ServiceAccountPassword = "";
+    //  string sUpdate = string.Empty;
+    //  if (dtMailSetting.Rows.Count > 0)
+    //  {
+    //    string sId = Convert.ToString(dtMailSetting.Rows[0]["ID"]);
+
+    //    //ServiceAccountPassword = EncryptDecryptHelper.Decrypt(Convert.ToString(dtMailSetting.Rows[0]["ADServiceAccountPassword"]));
+    //    ServiceAccountPassword = EncryptQRCODE(Convert.ToString(dtMailSetting.Rows[0]["ADServiceAccountPassword"]));
+    //  }
+
+
+    //  var Records = ActiveDirectoryHelpers.GetRecords(ServiceAccountName, ServiceAccountPassword, DomainPath, OUS);
+
+    //  int i = 0;
+
+    //  string sSqlMax = "select isnull(max(pl_id),0) as pl_id from PickList_tran where pl_head_id=18";
+    //  DataTable dt = ocon.GetTable(sSqlMax, new DataSet());
+    //  if (dt.Rows.Count > 0)
+    //  {
+    //    i = Convert.ToInt32(dt.Rows[0]["pl_id"]);
+    //  }
+
+    //  i = i + 1;
+
+
+    //  int j = 0;
+
+    //  string sSqlMaxDepartment = "select isnull(max(pl_id),0) as pl_id from PickList_tran where pl_head_id=4";
+    //  DataTable dtMaxDepartment = ocon.GetTable(sSqlMaxDepartment, new DataSet());
+    //  if (dtMaxDepartment.Rows.Count > 0)
+    //  {
+    //    j = Convert.ToInt32(dtMaxDepartment.Rows[0]["pl_id"]);
+    //  }
+
+    //  j = j + 1;
+
+    //  foreach (var Record in Records)
+    //  {
+    //    int iDeptId = 0;
+    //    #region Department
+
+    //    string sSqlDeptExists = "select * from PickList_tran where pl_head_id=4 and pl_Value='" + Record.Department.Trim() + "'";
+    //    DataTable dtDept = ocon.GetTable(sSqlDeptExists, new DataSet());
+    //    if (dtDept.Rows.Count > 0)
+    //    {
+    //      iDeptId = Convert.ToInt32(dtDept.Rows[0]["pl_id"]);
+    //    }
+    //    else
+    //    {
+    //      string sInsert = "insert into PickList_tran  (pl_head_id,pl_id,pl_Value)"
+    //                  + " values (4,'" + j + "','" + Record.Department.Trim() + "' )";
+
+    //      ocon.Execute(sInsert);
+
+
+    //      iDeptId = j;
+    //      j++;
+    //    }
+
+    //    #endregion
+
+    //    #region Employee
+
+    //    string sSqlEmpExists = "select * from PickList_tran where pl_head_id=18 and pl_Data='" + Record.Email.Trim() + "'";
+    //    DataTable dtEmp = ocon.GetTable(sSqlEmpExists, new DataSet());
+    //    if (dtEmp.Rows.Count > 0)
+    //    { }
+    //    else
+    //    {
+    //      try
+    //      {
+    //        string sInsert = "insert into PickList_tran  (pl_head_id,pl_id,pl_Value,pl_Data,Other_Data1,Other_Data2)"
+    //                             + " values (18,'" + i + "','" + Record.FullName.Trim() + "', '" + Record.Email.Trim() + "', '" + Record.Department.Trim() + "', '" + Record.ManagerName.Trim() + "')";
+
+    //        ocon.Execute(sInsert);
+    //      }
+    //      catch (Exception ex)
+    //      {
+    //        continue;
+    //      }
+
+    //      try
+    //      {
+    //       // string sPassword = EncryptDecryptHelper.Encrypt("P@ssw0rd123");
+
+    //        string sPassword = EncryptQRCODE("P@ssw0rd123");
+
+    //        string sInsertUser = "insert into [dbo].[Users] ([UserCode],[UserName],  [Phone],  [Pwd],  [UserActive],  [UserApprove],   [UserEmail],  UserGroup,Loc_Name,Location_ID)  "
+    //                        + " values('" + Record.Email.Trim() + "', '" + Record.FullName.Trim() + "', '" + Record.Phone + "', '" + sPassword + "', 1, 1,'" + Record.Email.Trim() + "','3', 'Location 1',1) ";
+    //        ocon.Execute(sInsertUser);
+    //      }
+    //      catch (Exception ex)
+    //      {
+    //        continue;
+    //      }
+
+    //      i++;
+    //    }
+    //    #endregion
+
+    //  }
+    //}
+
     protected void btnGetAD_Click(object sender, EventArgs e)
     {
       var ServiceAccountName = txtServiceAccountName.Text.Trim();
 
+      CreateLog("Service Account Name " + ServiceAccountName);
+
       var DomainPath = txtDomainPath.Text.Trim();
+
+      CreateLog("Domain Path " + txtDomainPath.Text);
       string strOUS = textOUS.Text.Trim();
+
       var OUS = new List<string>();
 
       string[] OUSLines = strOUS.Split(';');
@@ -109,9 +235,11 @@ namespace SecuLobbyVMS
       foreach (var OUSLine in OUSLines)
       {
         OUS.Add(OUSLine);
+
+        CreateLog("Ous Line " + OUSLine);
       }
 
-      string sSql = "SELECT ID, ADServiceAccountPassword  FROM MailSettings";
+      string sSql = "SELECT ID, ADServiceAccountPassword  FROM MailSettings";
       DataTable dtMailSetting = ocon.GetTable(sSql, new DataSet());
       string ServiceAccountPassword = "";
       string sUpdate = string.Empty;
@@ -120,11 +248,14 @@ namespace SecuLobbyVMS
         string sId = Convert.ToString(dtMailSetting.Rows[0]["ID"]);
 
         //ServiceAccountPassword = EncryptDecryptHelper.Decrypt(Convert.ToString(dtMailSetting.Rows[0]["ADServiceAccountPassword"]));
-        ServiceAccountPassword = EncryptQRCODE(Convert.ToString(dtMailSetting.Rows[0]["ADServiceAccountPassword"]));
+        ServiceAccountPassword = DecryptQRCODE(Convert.ToString(dtMailSetting.Rows[0]["ADServiceAccountPassword"]));
+
+        CreateLog("Password " + ServiceAccountPassword);
       }
 
 
       var Records = ActiveDirectoryHelpers.GetRecords(ServiceAccountName, ServiceAccountPassword, DomainPath, OUS);
+      CreateLog("Ous " + OUS);
 
       int i = 0;
 
@@ -151,6 +282,10 @@ namespace SecuLobbyVMS
 
       foreach (var Record in Records)
       {
+        CreateLog("Employee " + Record.FullName);
+        CreateLog("Employee " + Record.EmployeeCode);
+        CreateLog("Employee " + Record.Company);
+
         int iDeptId = 0;
         #region Department
 
@@ -162,8 +297,8 @@ namespace SecuLobbyVMS
         }
         else
         {
-          string sInsert = "insert into PickList_tran  (pl_head_id,pl_id,pl_Value)"
-                      + " values (4,'" + j + "','" + Record.Department.Trim() + "' )";
+          string sInsert = "insert into PickList_tran  (pl_head_id,pl_id,pl_Value)"
+          + " values (4,'" + j + "','" + Record.Department.Trim() + "' )";
 
           ocon.Execute(sInsert);
 
@@ -184,8 +319,8 @@ namespace SecuLobbyVMS
         {
           try
           {
-            string sInsert = "insert into PickList_tran  (pl_head_id,pl_id,pl_Value,pl_Data,Other_Data1,Other_Data2)"
-                                 + " values (18,'" + i + "','" + Record.FullName.Trim() + "', '" + Record.Email.Trim() + "', '" + Record.Department.Trim() + "', '" + Record.ManagerName.Trim() + "')";
+            string sInsert = "insert into PickList_tran  (pl_head_id,pl_id,pl_Value,pl_Data,Other_Data1,Other_Data2)"
+            + " values (18,'" + i + "','" + Record.FullName.Trim() + "', '" + Record.Email.Trim() + "', '" + Record.Department.Trim() + "', '" + Record.ManagerName.Trim() + "')";
 
             ocon.Execute(sInsert);
           }
@@ -196,12 +331,12 @@ namespace SecuLobbyVMS
 
           try
           {
-           // string sPassword = EncryptDecryptHelper.Encrypt("P@ssw0rd123");
+            // string sPassword = EncryptDecryptHelper.Encrypt("P@ssw0rd123");
 
             string sPassword = EncryptQRCODE("P@ssw0rd123");
 
-            string sInsertUser = "insert into [dbo].[Users] ([UserCode],[UserName],  [Phone],  [Pwd],  [UserActive],  [UserApprove],   [UserEmail],  UserGroup,Loc_Name,Location_ID)  "
-                            + " values('" + Record.Email.Trim() + "', '" + Record.FullName.Trim() + "', '" + Record.Phone + "', '" + sPassword + "', 1, 1,'" + Record.Email.Trim() + "','3', 'Location 1',1) ";
+            string sInsertUser = "insert into [dbo].[Users] ([UserCode],[UserName],  [Phone],  [Pwd],  [UserActive],  [UserApprove],   [UserEmail],  UserGroup,Loc_Name,Location_ID)  "
+            + " values('" + Record.Email.Trim() + "', '" + Record.FullName.Trim() + "', '" + Record.Phone + "', '" + sPassword + "', 1, 1,'" + Record.Email.Trim() + "','3', 'Location 1',1) ";
             ocon.Execute(sInsertUser);
           }
           catch (Exception ex)
@@ -214,6 +349,58 @@ namespace SecuLobbyVMS
         #endregion
 
       }
+    }
+    public static void CreateLog(string sMessage)
+    {
+
+      //System.Data.DataRow drUser = ((System.Data.DataRow)System.Web.HttpContext.Current.Session["UserInfoRow"]);
+      string sUserID = "System";
+      string sError = Environment.NewLine + "Date and Time : " + DateTime.Now + " ; Message : " + sMessage;
+      string InitialPath = System.Web.HttpContext.Current.Server.MapPath("~/images/Temp/Log");
+      if (!System.IO.Directory.Exists(InitialPath)) //Log Folder Checking 
+      {
+        System.IO.Directory.CreateDirectory(InitialPath);
+      }
+      string SubFolderRelativePath = Convert.ToString(DateTime.Today.ToString("dd-MM-yyyy"));//First SubFolder Name
+
+      string subfolderPath = System.IO.Path.Combine(InitialPath, SubFolderRelativePath);//First Sub Folder Path 
+      string subOfsubFolder = System.IO.Path.Combine(subfolderPath, Convert.ToString(sUserID));//Second SubFolder Path 
+      string tempFilePath = System.IO.Path.Combine(subOfsubFolder, Convert.ToString(DateTime.Today.ToString("dd-MM-yyyy")));// Text File Path
+
+      System.IO.DirectoryInfo tempFolder = new System.IO.DirectoryInfo(InitialPath); //Initial Path
+      System.IO.DirectoryInfo newTempPath = new System.IO.DirectoryInfo(subfolderPath); //First Sub Folder Path in DirectoryInfo
+
+      string[] sErr = { sError };
+
+      if (!System.IO.Directory.Exists(subfolderPath)) // First Sub Folder Check
+      {
+        System.IO.DirectoryInfo subFolder = tempFolder.CreateSubdirectory(SubFolderRelativePath); // First SubFolder Create Using Date(Folder Name)
+
+
+        #region CreateSubFolderOfSubFolder
+        System.IO.DirectoryInfo subfolderOfSub = subFolder.CreateSubdirectory(Convert.ToString(sUserID));// Second SubFolder Create Using UserID(Folder Name)
+        #endregion
+
+        System.IO.File.WriteAllLines(tempFilePath, sErr); // File Creation
+      }
+      else
+      {
+        #region CreateSubFolder
+        if (!System.IO.Directory.Exists(subOfsubFolder))  // Second Sub Folder Check
+        {
+          #region CreateSubFolderOfSubFolder
+          System.IO.DirectoryInfo subfolderOfSub = newTempPath.CreateSubdirectory(Convert.ToString(sUserID));// Second SubFolder Create Using UserID(Folder Name)
+          System.IO.File.WriteAllLines(tempFilePath, sErr);
+          #endregion
+        }
+        else
+        {
+          System.IO.File.AppendAllText(tempFilePath, sError);
+        }
+
+        #endregion
+      }
+
     }
     protected void btnSave_Click(object sender, EventArgs e)
     {
