@@ -47,7 +47,7 @@ namespace SecuLobbyVMS
           string sPwd = Convert.ToString(dt.Rows[0]["Pwd"]);
           //txtPassword.Text = EncryptDecryptHelper.Decrypt(sPwd);
           txtPassword.Text = DecryptQRCODE(sPwd);
-
+          //test
 
           //txtPassword.Attributes["value"] = EncryptDecryptHelper.Decrypt(sPwd);
           txtPassword.Attributes["value"] = DecryptQRCODE(sPwd);
